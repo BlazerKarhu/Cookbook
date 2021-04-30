@@ -1,21 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {Card} from 'react-native-elements';
+import PropTypes from 'prop-types';
 
-const Single = () => {
+const Single = ({route}) => {
+  const {data} = route.params;
+  console.log('Single recipe data', data);
   return (
-    <View style={styles.container}>
-      <Text>Single screen</Text>
-    </View>
+    <Card>
+      <Text>{data}</Text>
+    </Card>
   );
 };
-
+Single.propTypes = {
+  navigation: PropTypes.object,
+  data: PropTypes.object,
+  route: PropTypes.object,
+};
 export default Single;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

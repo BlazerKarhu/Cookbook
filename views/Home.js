@@ -7,7 +7,7 @@ import {FlatList} from 'react-native';
 import styles from './Styles';
 import {TouchableOpacity} from 'react-native';
 
-const Home = ({navigation, recipe}) => {
+const Home = ({navigation}) => {
   try {
     const {data, error, loading} = useQuery(RECIPE_QUERY);
 
@@ -22,7 +22,7 @@ const Home = ({navigation, recipe}) => {
         keyExtractor={(recipe) => recipe.id.toString()}
         renderItem={({item}) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Recipe Info', {data: recipe})}
+            onPress={() => navigation.navigate('Recipe Info', {data: item})}
           >
             <RecipeItem recipe={item} />
           </TouchableOpacity>
@@ -39,7 +39,15 @@ const RECIPE_QUERY = gql`
     recipes {
       id
       recipeName
+      instructions
       category
+      ingredients {
+        ingredientName
+        grams
+        nutrients {
+          id
+        }
+      }
     }
   }
 `;
@@ -64,7 +72,6 @@ const RecipeItem = ({recipe}) => {
 
 Home.propTypes = {
   navigation: PropTypes.object,
-  recipe: PropTypes.object,
 };
 /**/
 export default Home;

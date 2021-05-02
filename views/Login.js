@@ -1,9 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import {Button, Input} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useLogin} from '../hooks/fetchGQL';
 
 const Login = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
@@ -11,23 +12,21 @@ const Login = ({navigation}) => {
     username: '',
     password: '',
   });
+  const {postLogin} = useLogin();
+
   const logIn = async () => {
-    setIsLoggedIn(true);
-    await AsyncStorage.setItem('userToken', 'abc');
-    if (isLoggedIn) {
-      navigation.navigate('Home');
-    }
-  };
-  const getToken = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
-    if (userToken === 'abc') {
+    try {
+      const userData = await postLogin();
+      await AsyncStorage.setItem('userToken', userData.token);
       setIsLoggedIn(true);
-      props.navigation.navigate('Home');
+    } catch (error) {
+      console.error(error);
     }
   };
   useEffect(() => {
-    getToken();
+    if (isLoggedIn) {
+      navigation.navigate('Home');
+    }
   }, []);
   return (
     <View>

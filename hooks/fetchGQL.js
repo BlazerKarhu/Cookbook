@@ -8,12 +8,12 @@ const fetchGraphql = async (query) => {
     body: JSON.stringify(query),
   };
   try {
-    const response = await fetch('http://localhost:4000/graphql', options);
+    const response = await fetch('http://192.168.1.142:4000/graphql', options);
     const json = await response.json();
     console.log('response json', json.data);
     return json.data;
   } catch (e) {
-    console.log(e);
+    console.log('fetchGraphql error', e);
     return false;
   }
 };
@@ -39,29 +39,18 @@ const useLogin = () => {
     const query = {
       query: `
               {
-                login(username: "${username}", password: "${password}") {
+                login(username: "Joonas4", password: "Mielonen1") {
                   token
                 }
               }`,
     };
     const data = await fetchGraphql(query);
-    console.log(data);
     return data.login;
   };
 
   const checkToken = async (token) => {
-    const options = {
-      method: 'GET',
-      headers: {'x-access-token': token},
-    };
     try {
-      const response = await fetch(baseUrl + 'users/user', options);
-      const userData = response.json();
-      if (response.ok) {
-        return userData;
-      } else {
-        throw new Error(userData.message);
-      }
+      console.log('This is not implemented');
     } catch (error) {
       throw new Error(error.message);
     }

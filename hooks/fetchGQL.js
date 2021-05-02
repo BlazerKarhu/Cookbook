@@ -18,9 +18,10 @@ const fetchGraphql = async (query) => {
   }
 };
 
-const getRecipes = async () => {
-  const query = {
-    query: `
+const useRecipe = (inputs) => {
+  const getRecipes = async () => {
+    const query = {
+      query: `
             {
               recipes {
                 id
@@ -28,19 +29,85 @@ const getRecipes = async () => {
                 category
               }
             }`,
+    };
+    const data = await fetchGraphql(query);
+    console.log(data);
+    return data.recipes;
+  };
+
+  const postRecipe = async () => {
+    const query = {
+      query: `
+          mutation {
+            addRecipe(
+              recipeName: "${inputs.recipeName}",
+              instructions: "${inputs.instructions}",
+              category: "${inputs.category}") {
+               id
+      }
+    }
+    `,
+    };
+    const data = await fetchGraphql(query);
+    console.log('post recipe data', data);
+    return data.recipe;
+  };
+  return {getRecipes, postRecipe};
+};
+
+const getIngredients = async () => {
+  const query = {
+    query: `
+    {
+      ingredients {
+        id
+        ingredientName
+      }
+    }`,
+  };
+  const data = await fetchGraphql(query);
+  return data.ingredients;
+};
+
+const postIngredient = async () => {
+  const query = {
+    query: `
+    mutation {
+      addIngredient(ingredientName:"Chicken Breast", grams:300) {
+        ingredientName
+        grams
+      }
+    }
+    `,
   };
   const data = await fetchGraphql(query);
   console.log(data);
-  return data.recipes;
+  return data.ingredient;
 };
 
-const useLogin = () => {
-  const postLogin = async (username, password) => {
+const useLogin = (inputs) => {
+  /*const postLogin = async () => {
     const query = {
       query: `
               {
-                login(username: "Joonas4", password: "Mielonen1") {
-                  token
+                login(
+                  username: "${inputs.username}",
+                  password: "${inputs.password}") {
+                    token
+                }
+              }`,
+    };
+    const data = await fetchGraphql(query);
+    return data.login;
+  };*/
+  const postLogin = async () => {
+    const query = {
+      query: `
+              {
+                login(
+                  username: "Joonas4",
+                  password: "Mielonen1") {
+                    token
                 }
               }`,
     };
@@ -83,4 +150,4 @@ const useRegister = () => {
   return {postRegister};
 };
 
-export {getRecipes, useLogin, useRegister};
+export {useRecipe, getIngredients, postIngredient, useLogin, useRegister};

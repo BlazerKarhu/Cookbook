@@ -8,15 +8,25 @@ import {useLogin} from '../hooks/fetchGQL';
 
 const Login = ({navigation}) => {
   const {isLoggedIn, setIsLoggedIn, setUser} = useContext(MainContext);
-  const {inputs, setInputs} = useState({
+  const [inputs, setInputs] = useState({
     username: '',
     password: '',
   });
-  const {postLogin} = useLogin();
+  const {postLogin} = useLogin(inputs);
 
-  const logIn = async () => {
+  const handleInputChange = (name, text) => {
+    console.log(name, text);
+    setInputs((inputs) => {
+      return {
+        ...inputs,
+        [name]: text,
+      };
+    });
+  };
+
+  const logIn = async (inputs) => {
     try {
-      const userData = await postLogin();
+      const userData = await postLogin(inputs);
       await AsyncStorage.setItem('userToken', userData.token);
       setIsLoggedIn(true);
     } catch (error) {
@@ -31,12 +41,14 @@ const Login = ({navigation}) => {
   return (
     <View>
       <Input
+        autoCapitalize="none"
         placeholder="Username"
-        onEndEditing={(text) => setInputs({username: text})}
+        onChangeText={(txt) => handleInputChange('username', txt)}
       ></Input>
       <Input
+        autoCapitalize="none"
         placeholder="Password"
-        onEndEditing={(text) => setInputs({password: text})}
+        onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry
       ></Input>
       <Button title="Login" onPress={() => logIn()}></Button>

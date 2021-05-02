@@ -10,12 +10,10 @@ import {TouchableOpacity} from 'react-native';
 const Home = ({navigation}) => {
   try {
     const {data, error, loading} = useQuery(RECIPE_QUERY);
-
+    console.log('data in home', data);
     if (loading) {
       return <Loading />;
     }
-    console.log('Query error', error);
-    console.log('Query data', data);
     return (
       <FlatList
         data={data.recipes}
@@ -51,6 +49,7 @@ const RECIPE_QUERY = gql`
     }
   }
 `;
+
 const RecipeItem = ({recipe}) => {
   const {recipeName, category} = recipe;
   let header, subheader;

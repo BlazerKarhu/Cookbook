@@ -8,6 +8,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import Single from '../views/Single';
+import Login from '../views/Login';
+import Upload from '../views/Upload';
+import {MainContext} from '../contexts/MainContext';
+import {useContext} from 'react';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -17,25 +21,32 @@ const TabScreen = () => {
     // TODO: move content of <NavigationContainer> here
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Upload" component={Upload} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
 
 const StackScreen = () => {
+  const {isLoggedIn} = useContext(MainContext);
   return (
-    // TODO: make two stack screens:
-    // 1st: name=Home, component=TabScreen
-    //2nd: name=Single, component=Single
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={TabScreen}
-        options={({route}) => ({
-          headerTitle: getFocusedRouteNameFromRoute(route),
-        })}
-      />
-      <Stack.Screen name="Recipe Info" component={Single} />
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen
+            name="Home"
+            component={TabScreen}
+            options={({route}) => ({
+              headerTitle: getFocusedRouteNameFromRoute(route),
+            })}
+          />
+          <Stack.Screen name="Recipe Info" component={Single} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={Login}></Stack.Screen>
+        </>
+      )}
     </Stack.Navigator>
   );
 };

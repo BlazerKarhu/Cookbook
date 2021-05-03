@@ -15,7 +15,7 @@ mutation{
     full_name: "someFullName"
   )
   {
-    id
+    username
   }
 }
 ```

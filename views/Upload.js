@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {Alert} from 'react-native';
 import {ScrollView} from 'react-native';
-import {Button, Text, Card, Input} from 'react-native-elements';
+import {Button, Text, Card, Input, ListItem} from 'react-native-elements';
 import {getIngredients} from '../hooks/fetchGQL';
 import {useRecipe} from '../hooks/fetchGQL';
 import MultiSelect from 'react-native-multiple-select';
@@ -15,15 +16,6 @@ const Upload = () => {
   });
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const cateogies = {
-    meat: 'Meat',
-    dessert: 'Dessert',
-    appetizer: 'Appetizer',
-    main: 'Main Dish',
-    salad: 'Salad',
-    soup: 'Soup',
-    vegan: 'Vegan',
-  };
 
   const {postRecipe} = useRecipe(inputs);
 
@@ -109,6 +101,22 @@ const Upload = () => {
     </ScrollView>
   );
 };
+
+/*<ScrollView style={styles.ingredientsScroll}>
+            {ingredients.map((l, i) => (
+              <ListItem
+                key={i}
+                bottomDivider
+                onPress={() =>
+                  Alert.alert('Ingredient pressed', l.ingredientName)
+                }
+              >
+                <ListItem.Content>
+                  <ListItem.Title>{l.ingredientName}</ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            ))}
+          </ScrollView>*/
 
 const styles = StyleSheet.create({
   container: {

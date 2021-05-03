@@ -1,3 +1,5 @@
+import {Alert} from 'react-native';
+
 const fetchGraphql = async (query) => {
   const options = {
     method: 'POST',
@@ -141,23 +143,40 @@ const useLogin = (inputs) => {
   return {postLogin, checkToken};
 };
 
-const useRegister = () => {
-  const postRegister = async (inputs) => {
+const useRegister = (inputs) => {
+  const postRegister = async () => {
     console.log('trying to create user', inputs);
-    const fetchOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(inputs),
-    };
     try {
-      const response = await fetch(baseUrl + 'users', fetchOptions);
-      const json = await response.json();
-      console.log('register result', json);
-      if (response.ok) {
-        return json;
-      } else {
-        throw new Error(json.message + ': ' + json.error);
+      const registerInputs = {
+        username: inputs.username,
+        password: inputs.password,
+        full_name: inputs.full_name,
+      };
+      const query = {
+        query: `
+        mutation register(
+          $username: String!
+          $password: String!
+          $full_name: String
+        ) {
+          registerUser(
+            username: $username
+            password: $password
+            full_name: $full_name
+          ) {
+            id
+          }
+        }
+      `,
+        variables: JSON.stringify(registerInputs),
+      };
+
+      const data = await fetchGraphql(query);
+      if (data.registerUser === null) {
+        Alert.alert('Try with different username');
+        return;
       }
+      return data.register;
     } catch (error) {
       throw new Error(error.message);
     }

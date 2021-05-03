@@ -6050,6 +6050,11 @@
   "resolved" "https://registry.npmjs.org/react-native-bootstrap/-/react-native-bootstrap-0.1.0.tgz"
   "version" "0.1.0"
 
+"react-native-dropdown-picker@^5.0.0":
+  "integrity" "sha512-UvdNPaucO5rlokUYmpxkmYJmoa7rXqguGagVAVvaJoajdVdN3aFsx42ixF9ytsnvPoa6Ln48UI3KRyPxpj55dw=="
+  "resolved" "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.0.0.tgz"
+  "version" "5.0.0"
+
 "react-native-elements@^3.3.2":
   "integrity" "sha512-bDWQt0WEuJEOrwzSYx0mVBV3aoRtJAsK0Kc2sioMsshSEhPOZK17Ccx+EvLBSpZ9uWxPyx42Z7hUH/8dQNu67g=="
   "resolved" "https://registry.npmjs.org/react-native-elements/-/react-native-elements-3.3.2.tgz"

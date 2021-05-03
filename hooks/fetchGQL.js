@@ -36,21 +36,36 @@ const useRecipe = (inputs) => {
   };
 
   const postRecipe = async () => {
+    const recipe = {
+      recipeName: inputs.recipeName,
+      instructions: inputs.instructions,
+      ingredients: inputs.ingredients,
+      category: inputs.category,
+    };
     const query = {
       query: `
-          mutation {
-            addRecipe(
-              recipeName: "${inputs.recipeName}",
-              instructions: "${inputs.instructions}",
-              category: "${inputs.category}") {
-               id
+      mutation munHaku(
+        $recipeName: String!
+        $instructions: String
+        $ingredients: [ID!]
+        $category: String
+      ) {
+        addRecipe(
+          recipeName: $recipeName
+          instructions: $instructions
+          ingredients: $ingredients
+          category: $category
+        ) {
+          id
+        }
       }
-    }
     `,
+      variables: JSON.stringify(recipe),
     };
+    console.log('postRecipe query', query);
     const data = await fetchGraphql(query);
     console.log('post recipe data', data);
-    return data.recipe;
+    return data?.recipe;
   };
   return {getRecipes, postRecipe};
 };

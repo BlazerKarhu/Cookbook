@@ -103,7 +103,7 @@ const postIngredient = async () => {
 };
 
 const useLogin = (inputs) => {
-  /*const postLogin = async () => {
+  const postLogin = async () => {
     const query = {
       query: `
               {
@@ -116,8 +116,8 @@ const useLogin = (inputs) => {
     };
     const data = await fetchGraphql(query);
     return data.login;
-  };*/
-  const postLogin = async () => {
+  };
+  /*const postLogin = async () => {
     const query = {
       query: `
               {
@@ -130,7 +130,7 @@ const useLogin = (inputs) => {
     };
     const data = await fetchGraphql(query);
     return data.login;
-  };
+  };*/
 
   const checkToken = async (token) => {
     try {
@@ -176,6 +176,7 @@ const useRegister = (inputs) => {
         Alert.alert('Try with different username');
         return;
       }
+      Alert.alert('Register success');
       return data.register;
     } catch (error) {
       throw new Error(error.message);

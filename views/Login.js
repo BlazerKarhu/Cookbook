@@ -15,6 +15,7 @@ const Login = ({navigation}) => {
     password: '',
   });
   const {postLogin} = useLogin(inputs);
+  const {postLogin2} = useLogin(inputs);
   const {postRegister} = useRegister(inputs);
 
   const handleInputChange = (name, text) => {

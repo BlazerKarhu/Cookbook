@@ -31,7 +31,15 @@ const useRecipe = (inputs) => {
               recipes {
                 id
                 recipeName
+                instructions
                 category
+                ingredients {
+                  ingredientName
+                  grams
+                  nutrients {
+                    id
+                  }
+                }
               }
             }`,
     };
@@ -125,8 +133,8 @@ const useLogin = (inputs) => {
       query: `
               {
                 login(
-                  username: "Joonas4",
-                  password: "Mielonen1") {
+                  username: "Joonas",
+                  password: "Mielonen") {
                     token
                 }
               }`,

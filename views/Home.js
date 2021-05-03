@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {gql, useQuery} from '@apollo/client';
@@ -6,8 +6,22 @@ import Loading from './Loading';
 import {FlatList} from 'react-native';
 import styles from './Styles';
 import {TouchableOpacity} from 'react-native';
+import {useRecipe} from '../hooks/fetchGQL';
+import {MainContext} from '../contexts/MainContext';
 
 const Home = ({navigation}) => {
+  const {update} = useContext(MainContext);
+  const {getRecipes} = useRecipe();
+  const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        setRecipes(await getRecipes());
+      } catch (error) {
+        console.log('upload error', error);
+      }
+    })();
+  }, [update]);
   try {
     const {data, error, loading} = useQuery(RECIPE_QUERY);
     console.log('data in home', data);
@@ -17,7 +31,7 @@ const Home = ({navigation}) => {
     return (
       <View>
         <FlatList
-          data={data.recipes}
+          data={recipes}
           keyExtractor={(recipe) => recipe.id.toString()}
           renderItem={({item}) => (
             <TouchableOpacity

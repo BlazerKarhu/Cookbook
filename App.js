@@ -5,7 +5,7 @@ import {MainProvider} from './contexts/MainContext';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://192.168.1.142:4000/graphql',
+  uri: 'https://jtm-sssf.jelastic.metropolia.fi/',
   cache: new InMemoryCache(),
 });
 const App = () => {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import {Button, Input, Text} from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useLogin, postRegister, useRegister} from '../hooks/fetchGQL';
+import {useLogin, useRegister} from '../hooks/fetchGQL';
 import {Alert} from 'react-native';
 
 const Login = ({navigation}) => {

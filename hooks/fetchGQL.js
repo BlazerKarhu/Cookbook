@@ -10,7 +10,10 @@ const fetchGraphql = async (query) => {
     body: JSON.stringify(query),
   };
   try {
-    const response = await fetch('http://192.168.1.142:4000/graphql', options);
+    const response = await fetch(
+      'https://jtm-sssf.jelastic.metropolia.fi/graphql',
+      options
+    );
     const json = await response.json();
     console.log('response json', json.data);
     return json.data;

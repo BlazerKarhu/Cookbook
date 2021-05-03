@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Alert} from 'react-native';
 import {ScrollView} from 'react-native';
@@ -6,8 +6,10 @@ import {Button, Text, Card, Input, ListItem} from 'react-native-elements';
 import {getIngredients} from '../hooks/fetchGQL';
 import {useRecipe} from '../hooks/fetchGQL';
 import MultiSelect from 'react-native-multiple-select';
+import PropTypes from 'prop-types';
+import {MainContext} from '../contexts/MainContext';
 
-const Upload = () => {
+const Upload = ({navigation}) => {
   const [inputs, setInputs] = useState({
     recipeName: '',
     category: '',
@@ -16,6 +18,7 @@ const Upload = () => {
   });
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const {update, setUpdate} = useContext(MainContext);
 
   const {postRecipe} = useRecipe(inputs);
 
@@ -28,6 +31,22 @@ const Upload = () => {
         ingredients: selectedIngredients,
       };
     });
+  };
+  const successAlert = () => {
+    Alert.alert('Success', 'Maybe, move to home and find out', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          setUpdate(update + 1);
+          navigation.navigate('Home');
+        },
+      },
+    ]);
   };
 
   const onSelectedItemsChange = (selectedItems) => {
@@ -45,6 +64,7 @@ const Upload = () => {
       });
       const recipeData = await postRecipe(inputs);
       console.log('upload recipe data', recipeData);
+      successAlert();
     } catch (error) {
       console.log('upload recipe error', error);
     }
@@ -132,4 +152,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+Upload.propTypes = {
+  navigation: PropTypes.object,
+};
 export default Upload;

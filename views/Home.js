@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {gql, useQuery} from '@apollo/client';
@@ -15,17 +15,19 @@ const Home = ({navigation}) => {
       return <Loading />;
     }
     return (
-      <FlatList
-        data={data.recipes}
-        keyExtractor={(recipe) => recipe.id.toString()}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Recipe Info', {data: item})}
-          >
-            <RecipeItem recipe={item} />
-          </TouchableOpacity>
-        )}
-      />
+      <View>
+        <FlatList
+          data={data.recipes}
+          keyExtractor={(recipe) => recipe.id.toString()}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Recipe Info', {data: item})}
+            >
+              <RecipeItem recipe={item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     );
   } catch (error) {
     console.error(error);

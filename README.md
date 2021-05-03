@@ -1,7 +1,7 @@
 # Cookbook
 SSSF-Project
 ## Link to server  
-https://jtm-sssf.jelastic.metropolia.fi/graphql
+https://jtm-sssf.jelastic.metropolia.fi/graphql  Might not work
 
 ## Sample Queries
 ### Register user

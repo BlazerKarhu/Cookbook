@@ -3,7 +3,7 @@ SSSF-Project
 ## Link to server  
 https://jtm-sssf.jelastic.metropolia.fi/graphql  Might not work  
 ## Expo QR  
-![image](https://user-images.githubusercontent.com/33052692/116920595-84814d80-ac5b-11eb-94da-68344b5297f2.png)
+![image](https://user-images.githubusercontent.com/33052692/116965530-b96ebe00-acb6-11eb-800f-9a80e970eda3.png)
 
 ## Sample Queries
 ### Register user

@@ -1,5 +1,6 @@
 # Cookbook
-SSSF-Project
+SSSF-Project  
+Cookbook application to share recipes
 ## Link to server  
 https://jtm-sssf.jelastic.metropolia.fi/graphql  Might not work  
 ## Expo QR  

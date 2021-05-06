@@ -1,6 +1,7 @@
 # Cookbook
 SSSF-Project  
-Cookbook application to share recipes
+Cookbook application to share recipes  
+Currently login/register and uploading recipes work
 ## Link to server  
 https://jtm-sssf.jelastic.metropolia.fi/graphql  Might not work  
 ## Expo QR  
